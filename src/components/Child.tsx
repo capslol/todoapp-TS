@@ -3,6 +3,7 @@ interface ChildProps {
     increment: () => void
 }
 const Child: FC<ChildProps> = ({increment}) => {
+
     console.log('render Child')
     return (
         <div>
