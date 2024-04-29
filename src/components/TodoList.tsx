@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {ITodo} from "../types/data";
 import TodoItem from "./TodoItem";
+import {useQuery} from "react-query";
+import {fetchTodos} from "../services/todos";
 
 interface ITodoListProps {
     items: ITodo[]
@@ -10,6 +12,11 @@ interface ITodoListProps {
 }
 
 const TodoList:FC<ITodoListProps> = ({items,deleteTodo, toggleTodo}) => {
+    const {data, isLoading, isSuccess} = useQuery({
+        queryFn: ()=> fetchTodos('all'),
+        queryKey: ['todos', 'all']
+    })
+
     return (
         <div>
             {items.map((item) => (
