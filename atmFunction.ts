@@ -1,21 +1,16 @@
 const nominals = [50, 100, 200,500,1000,2000,5000]
 
-function atm (amount: number, nominals: number[]):string[] {
+const atm = (amount: number, nominals: number[]) => {
+    const sortedNominals = nominals.sort((a, b) => b - a)
     const result: string[] = []
-    let remainder = amount
-
-    for (let i = nominals.length - 1; i >= 0; i--) {
-        const quantity = Math.floor(remainder / nominals[i])
-        remainder = remainder % nominals[i];
-
-        if(quantity > 0){
-            result.push(`${nominals[i]}x${quantity}`)
-        }
-
-
-        if (remainder === 0) {
-            break;
+    let sum = amount
+    for (const nominal of sortedNominals) {
+        const count = Math.floor(sum / nominal)
+        sum = sum % nominal
+        if (count > 0) {
+            result.push(`${nominal}x${count}`)
         }
     }
+    console.log('spring'.split(''))
     return result
 }

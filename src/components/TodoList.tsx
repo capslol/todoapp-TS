@@ -3,6 +3,7 @@ import {ITodo} from "../types/data";
 import TodoItem from "./TodoItem";
 import {useQuery} from "react-query";
 import {fetchTodos} from "../services/todos";
+import {Spinner} from "@chakra-ui/react";
 
 interface ITodoListProps {
     items: ITodo[]
@@ -13,13 +14,25 @@ interface ITodoListProps {
 
 const TodoList:FC<ITodoListProps> = ({items,deleteTodo, toggleTodo}) => {
     const {data, isLoading, isSuccess} = useQuery({
-        queryFn: ()=> fetchTodos('all'),
+        queryFn: () => fetchTodos('all'),
         queryKey: ['todos', 'all']
     })
 
+    if(isLoading){
+        return (
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
+            />
+        )
+    }
+
     return (
         <div>
-            {items.map((item) => (
+            {isSuccess && data.map((item) => (
                 <TodoItem
                     toggleTodo={toggleTodo}
                     deleteTodo={deleteTodo}

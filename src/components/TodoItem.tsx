@@ -8,10 +8,10 @@ interface ITodoItem extends ITodo {
 
 
 
-const TodoItem: FC<ITodoItem> = ({id, title, complete,deleteTodo, toggleTodo}) => {
+const TodoItem: FC<ITodoItem> = ({id, title, completed,deleteTodo, toggleTodo}) => {
     return (
         <div>
-            <input type="checkbox" checked={complete} onChange={() => toggleTodo(id)}/>
+            <input type="checkbox" checked={completed} onChange={() => toggleTodo(id)}/>
             {title}
             <button onClick={() => deleteTodo(id)}>x</button>
 

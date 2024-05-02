@@ -3,34 +3,19 @@ import {ITodo} from "../types/data";
 import TodoList from "./TodoList";
 import axios from "axios";
 import {log} from "util";
+import AddTodoForm from "./AddTodoForm";
 
 const url = 'https://jsonplaceholder.typicode.com/todos'
 
 const App: FC = () => {
     const [value, setValue] = useState('')
+
     const [todos, setTodos] = useState<ITodo[]>([])
-    const inputRef = useRef<HTMLInputElement>(null)
 
 
-    const nominals: number[] = [5000, 100, 50, 200, 500, 1000, 2000]
 
     const sortArray = (arr: number[]): number[] => {
         return arr.sort((a: number, b: number) => b - a)
-    }
-
-    const atm = (amount: number, nominals: number[]) => {
-        const sortedNominals = nominals.sort((a, b) => b - a)
-        const result: string[] = []
-        let sum = amount
-        for (const nominal of sortedNominals) {
-            const count = Math.floor(sum / nominal)
-            sum = sum % nominal
-            if (count > 0) {
-                result.push(`${nominal}x${count}`)
-            }
-        }
-        console.log('spring'.split(''))
-        return result
     }
 
     const addToDo = () => {
@@ -38,7 +23,7 @@ const App: FC = () => {
             setTodos([...todos, {
                 id: Date.now(),
                 title: value,
-                complete: false
+                completed: false
             }])
             setValue('')
         }
@@ -55,29 +40,26 @@ const App: FC = () => {
             }
             return {
                 ...todoItem,
-                complete: !todoItem.complete
+                completed: !todoItem.completed
             }
         }))
     }
-    useEffect(() => {
-        axios.get(url)
-            .then((res) => setTodos(res.data))
+    // useEffect(() => {
+    //     axios.get(url)
+    //         .then((res) => setTodos(res.data))
+    //
+    //     if (inputRef.current) {
+    //         inputRef.current.focus()
+    //     }
+    // }, [])
 
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, [])
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
-    }
 
     return (
         <div>
-            <div>
-                <input value={value} onChange={handleChange} ref={inputRef} type="text"/>
-                <button onClick={addToDo}>Add</button>
-            </div>
+            <AddTodoForm addToDo={addToDo}  />
+
+
             <TodoList
                 toggleTodo={toggleTodo}
                 deleteTodo={deleteTodo}

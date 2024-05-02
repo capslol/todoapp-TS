@@ -1,11 +1,12 @@
 import { ITodo, TodoState } from '../types/data'
 
-const BASE = 'http://localhost:3000/'
+const BASE = 'http://localhost:3000/todos'
 
 export async function fetchTodos(state: TodoState = 'all'): Promise<ITodo[]> {
     const queries = state === 'all' ? '' : `?completed=${state === 'completed'}`
 
-    const res = await fetch(`${BASE}/${queries}`)
+    const res = await fetch(`${BASE}${queries}`)
+    console.log(res)
 
     if (!res.ok) throw new Error('Failed to fetch todos!')
 
