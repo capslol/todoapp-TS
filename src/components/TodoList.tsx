@@ -1,22 +1,15 @@
 import React, {FC} from 'react';
-import {ITodo} from "../types/data";
+import {ITodo, TodoState} from "../types/data";
 import TodoItem from "./TodoItem";
-import {useQuery} from "react-query";
-import {fetchTodos} from "../services/todos";
 import {List, Spinner} from "@chakra-ui/react";
+import useTodosQuery from "../hooks/useTodosQuery";
 
-interface ITodoListProps {
-    items: ITodo[]
-    // deleteTodo: (id:number) => void
-    // toggleTodo: (id:number) => void
-
+type TodoListProps = {
+    state: TodoState
 }
 
-const TodoList:FC<ITodoListProps> = ({items}) => {
-    const {data, isLoading, isSuccess} = useQuery({
-        queryFn: () => fetchTodos('all'),
-        queryKey: ['todos', 'all']
-    })
+const TodoList:FC<TodoListProps> = ({state}) => {
+    const {data ,isLoading, isSuccess} = useTodosQuery(state)
 
     if(isLoading){
         return (
