@@ -1,27 +1,20 @@
 import React, { FC, useState} from 'react';
-import {ITodo} from "../types/data";
-import TodoList from "./TodoList";
-import AddTodoForm from "./AddTodoForm";
-import TodoViewer from "./TodoViewer";
+import {Route, Routes} from "react-router-dom";
+import Register from "./Register";
+import Logo from "react-query/types/devtools/Logo";
+import Login from "./Login";
+import Home from "./Home";
 
 const url = 'https://jsonplaceholder.typicode.com/todos'
 
 const App: FC = () => {
-
-
-
-
-    const sortArray = (arr: number[]): number[] => {
-        return arr.sort((a: number, b: number) => b - a)
-    }
-
-
-
     return (
-        <div>
-            <AddTodoForm   />
-            <TodoViewer/>
-        </div>
+        <Routes>
+            <Route path={'/register'} element={<Register/>}></Route>
+            <Route path={'/login'} element={<Login/>}></Route>
+            <Route path={'/home'} element={<Home/>}></Route>
+        </Routes>
+
     );
 };
 

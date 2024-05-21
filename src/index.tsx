@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter as Router} from 'react-router-dom';
 import App from './components/App';
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ChakraProvider} from '@chakra-ui/react'
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const client = new QueryClient()
 
@@ -11,12 +11,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-
         <QueryClientProvider client={client}>
-            <ChakraProvider>
+            <Router>
                 <App/>
-            </ChakraProvider>
-
+            </Router>
         </QueryClientProvider>
     </React.StrictMode>
 );
